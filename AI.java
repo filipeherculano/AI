@@ -1,4 +1,4 @@
-import java.awt.*;
+																																																																																																																	import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalLookAndFeel;
@@ -26,7 +26,7 @@ public class AI
 	
 	JFrame f = new JFrame("Artificial Intelligence");
 	f.setSize(1024, 750);
-	f.setResizable(false);
+	f.setResizable(true);
 	f.addWindowListener(new WindowAdapter() {
 	    public void windowClosing(WindowEvent e) {
 		System.exit(0);

@@ -6,11 +6,20 @@ import java.util.*;
 public class ModelAgent extends VacuumAgent{
 	public int base = -1, altura = -1, state = -1;
 	public boolean trans = false;
-	public boolean lastRow = false;
 	
 	public void determineAction(){
 		Vector p = (Vector) percept;
 		if(p.elementAt(1) == "dirt") action = "suck";
+		else if(p.elementAt(2) == "home" && state != -1) action = "shut-off";
+		else if(base != -1 && altura != -1 && (altura == 1 ^ base == 1)) {
+			if(altura == 1){
+				if(!(body.heading.x == -1 && body.heading.y == 0)) action = "turn left";
+				else action = "forward";
+			} else if(base == 1){
+				if(!(body.heading.x == 0 && body.heading.y == -1)) action = "turn left";
+				else action = "forward";
+			}
+		}
 		else if(p.elementAt(0) == "bump"){
 			if(this.base == -1){
 				this.base = body.loc.x;
