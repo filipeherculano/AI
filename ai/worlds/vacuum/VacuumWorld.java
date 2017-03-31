@@ -1,6 +1,7 @@
 package ai.worlds.vacuum;
 
 
+import java.awt.Point;
 import java.util.Vector;
 import ai.worlds.*;
 import javax.swing.*;
@@ -13,7 +14,7 @@ public class VacuumWorld extends GridEnvironment
 {
     public VacuumWorld(Agent[] a, int xsize, int ysize, double probDirt, JFrame f) {
     	super(a,xsize,ysize, f);
-    	fillGrid(probDirt,(new Dirt()).getClass());
+    	fillGrid(0.45,(new Dirt()).getClass());
     }
     
     /**
@@ -48,7 +49,12 @@ public class VacuumWorld extends GridEnvironment
      */  
     public int performanceMeasure(Agent a) {
     	AgentBody body = a.body;
-    	int score = 100 * body.container.size() - step;
+    	Vector p = (Vector) a.percept;
+    	Point e = new Point(a.body.loc.x, a.body.loc.y);
+    	if(a.coord.add(e) == false) a.repeat++;
+    	if (p.elementAt(0) == "bump") a.bumps++;
+    	if (step == 200) a.reach = 1; 
+    	int score = 100 * body.container.size() - step - (a.bumps * 20) - (a.reach * 300) - (a.repeat * 5);
     	if (! body.alive && !(body.loc.x==1 && body.loc.y==1)) score = score - 1000;
     	a.score=score;
     	return score;

@@ -1,4 +1,8 @@
 package ai.worlds;
+
+import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
 /**
  * A generic agent.
  * All agents must implement determineAction and takeAction methods
@@ -16,6 +20,14 @@ public abstract class Agent
 	* The current score
 	*/
 	public  int score;	
+	
+	public  int bumps;
+	
+	public int repeat;
+	
+	public int reach;
+	
+	public Set<Point> coord;
 	/**
 	* The current percept
 	*/
@@ -29,7 +41,11 @@ public abstract class Agent
 	public Agent()
 	{
 		body = new AgentBody();
+		coord = new HashSet<Point>();
 		score = 0;
+		bumps = 0;
+		reach = 0;
+		repeat = 0;
 	}
 
 	/**
